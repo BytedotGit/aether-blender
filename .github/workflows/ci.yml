@@ -10,6 +10,9 @@ jobs:
   lint:
     name: Code Quality
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
 
@@ -49,6 +52,9 @@ jobs:
     name: Unit Tests
     runs-on: windows-latest
     needs: lint
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
 
@@ -85,6 +91,9 @@ jobs:
     name: Blender Integration
     runs-on: windows-latest
     needs: test
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
 
