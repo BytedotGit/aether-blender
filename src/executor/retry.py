@@ -5,7 +5,7 @@ Exponential backoff retry mechanism for failed code execution.
 """
 
 import asyncio
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from typing import Any, TypeVar
 
@@ -83,8 +83,8 @@ class RetryManager:
 
     async def execute_with_retry(
         self,
-        execute_fn: Callable[[str], Any],
-        fix_fn: Callable[[str, str], str] | None = None,
+        execute_fn: Callable[[str], Awaitable[Any]],
+        fix_fn: Callable[[str, str], Awaitable[str]] | None = None,
         code: str = "",
         _context: dict[str, Any] | None = None,
     ) -> tuple[Any, int]:

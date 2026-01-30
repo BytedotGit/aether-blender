@@ -4,6 +4,7 @@ AI Module - __init__.py.
 AI provider integrations for natural language to Blender code conversion.
 """
 
+from src.ai.anthropic_provider import AnthropicProvider
 from src.ai.exceptions import (
     AIProviderError,
     APIKeyInvalidError,
@@ -12,9 +13,12 @@ from src.ai.exceptions import (
     ContextTooLongError,
     ModelUnavailableError,
     ProviderConnectionError,
+    ProviderNotFoundError,
     RateLimitError,
 )
+from src.ai.factory import ProviderFactory, get_provider
 from src.ai.gemini_provider import GeminiProvider
+from src.ai.openai_provider import OpenAIProvider
 from src.ai.provider import (
     AIProvider,
     FixResult,
@@ -32,6 +36,11 @@ __all__ = [
     "ProviderType",
     # Providers
     "GeminiProvider",
+    "OpenAIProvider",
+    "AnthropicProvider",
+    # Factory
+    "ProviderFactory",
+    "get_provider",
     # Exceptions
     "AIProviderError",
     "APIKeyMissingError",
@@ -41,4 +50,5 @@ __all__ = [
     "CodeGenerationError",
     "ContextTooLongError",
     "ProviderConnectionError",
+    "ProviderNotFoundError",
 ]

@@ -110,6 +110,11 @@ class AIProvider(ABC):
         """Return the currently selected model."""
         return self._model
 
+    @property
+    def current_model(self) -> str:
+        """Return the currently selected model (alias for model property)."""
+        return self._model
+
     @model.setter
     def model(self, value: str) -> None:
         """Set the model, validating it's available."""

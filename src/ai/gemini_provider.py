@@ -107,7 +107,9 @@ class GeminiProvider(AIProvider):
         self._api_key = api_key or os.getenv(GEMINI_API_KEY_ENV)
         if not self._api_key:
             logger.error("Gemini API key not found")
-            raise APIKeyMissingError("Gemini", GEMINI_API_KEY_ENV)
+            raise APIKeyMissingError(
+                f"Gemini API key not found. Set {GEMINI_API_KEY_ENV} environment variable.",
+            )
 
         # Configure the genai library
         genai.configure(api_key=self._api_key)  # type: ignore[attr-defined]
@@ -296,7 +298,7 @@ class GeminiProvider(AIProvider):
     async def _generate_content(self, prompt: str) -> Any:
         """Generate content using the Gemini model."""
         if self._client is None:
-            raise ProviderConnectionError("Gemini", "Client not initialized")
+            raise ProviderConnectionError("Gemini client not initialized")
 
         # Use generate_content_async for async operation
         return await self._client.generate_content_async(prompt)
@@ -309,15 +311,17 @@ class GeminiProvider(AIProvider):
             logger.error(
                 f"API key error during {operation}", extra={"error": str(error)}
             )
-            raise APIKeyInvalidError("Gemini", str(error)) from error
+            raise APIKeyInvalidError(f"Gemini API key error: {error}") from error
 
         if "rate limit" in error_str or "quota" in error_str:
             logger.warning(f"Rate limit hit during {operation}")
-            raise RateLimitError("Gemini") from error
+            raise RateLimitError("Gemini rate limit exceeded") from error
 
         if "connect" in error_str or "network" in error_str:
             logger.error(f"Connection error during {operation}")
-            raise ProviderConnectionError("Gemini", str(error)) from error
+            raise ProviderConnectionError(
+                f"Gemini connection error: {error}"
+            ) from error
 
         # Generic code generation error
         logger.error(

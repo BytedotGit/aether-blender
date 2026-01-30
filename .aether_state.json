@@ -1,11 +1,11 @@
 {
   "project_name": "aether-blender",
   "version": "0.1.0",
-  "current_phase": 3,
-  "phase_name": "The Cortex",
-  "phase_status": "in_progress",
-  "last_action": "Implemented Phase 3 AI Integration: Gemini provider with model selector, executor module with retry and history tracking. 140 tests passing.",
-  "last_updated": "2026-01-30T16:30:00Z",
+  "current_phase": 4,
+  "phase_name": "The Interface",
+  "phase_status": "not_started",
+  "last_action": "Completed Phase 3 AI Integration: Gemini provider, OpenAI/Anthropic scaffolds, provider factory, orchestration pipeline. 175 tests passing.",
+  "last_updated": "2026-01-30T17:00:00Z",
   "completed_tasks": [
     "Directory structure created",
     "All AGENTS.md files created (14 files)",
@@ -50,15 +50,23 @@
     "AI provider unit tests (tests/unit/test_ai_provider.py)",
     "Gemini provider unit tests (tests/unit/test_gemini_provider.py)",
     "Executor unit tests (tests/unit/test_executor.py)",
-    "Secure API key management via .env (gitignored)"
+    "Secure API key management via .env (gitignored)",
+    "OpenAI provider scaffold (src/ai/openai_provider.py)",
+    "Anthropic provider scaffold (src/ai/anthropic_provider.py)",
+    "Provider factory (src/ai/factory.py)",
+    "Orchestrator exceptions (src/orchestrator/exceptions.py)",
+    "Orchestration pipeline (src/orchestrator/pipeline.py)",
+    "OpenAI provider tests (tests/unit/test_openai_provider.py)",
+    "Anthropic provider tests (tests/unit/test_anthropic_provider.py)",
+    "Provider factory tests (tests/unit/test_provider_factory.py)",
+    "Orchestrator tests (tests/unit/test_orchestrator.py)"
   ],
   "pending_tasks": [
-    "OpenAI provider implementation",
-    "Anthropic provider implementation",
-    "Local/Ollama provider implementation",
-    "AI orchestration pipeline",
-    "End-to-end AI execution flow",
-    "Integration tests for AI pipeline"
+    "GUI chat window (src/gui/chat_window.py)",
+    "GUI message components",
+    "GUI settings panel",
+    "GUI-to-orchestrator integration",
+    "End-to-end workflow testing"
   ],
   "known_issues": [
     "google.generativeai package deprecated - will migrate to google.genai"
@@ -67,16 +75,16 @@
   "blender_status": "installed",
   "blender_version": "4.2.0",
   "blender_path": "tools/blender/blender.exe",
-  "test_status": "140 unit tests passing",
+  "test_status": "175 unit tests passing",
   "phase_3_progress": {
     "ai_exceptions": "complete",
     "ai_provider_base": "complete",
     "ai_prompts": "complete",
     "gemini_provider": "complete",
     "executor_module": "complete",
-    "openai_provider": "pending",
-    "anthropic_provider": "pending",
-    "orchestration_pipeline": "pending"
+    "openai_provider": "scaffold_complete",
+    "anthropic_provider": "scaffold_complete",
+    "orchestration_pipeline": "complete"
   },
   "ai_providers": {
     "gemini": {
@@ -85,18 +93,20 @@
       "default_model": "gemini-2.0-flash"
     },
     "openai": {
-      "status": "pending",
-      "models": ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"]
+      "status": "scaffold",
+      "models": ["gpt-4o", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"],
+      "default_model": "gpt-4o"
     },
     "anthropic": {
-      "status": "pending",
-      "models": ["claude-3-opus", "claude-3-sonnet", "claude-3-haiku"]
+      "status": "scaffold",
+      "models": ["claude-sonnet-4-20250514", "claude-3-5-sonnet-20240620", "claude-3-opus-20240229", "claude-3-haiku-20240307"],
+      "default_model": "claude-sonnet-4-20250514"
     }
   },
   "next_steps": [
-    "Commit Phase 3 progress",
-    "Implement OpenAI provider",
-    "Build AI orchestration pipeline",
-    "Create end-to-end AI execution test"
+    "Begin Phase 4: The Interface",
+    "Implement PyQt6 chat window",
+    "Create GUI message components",
+    "Wire GUI to orchestration pipeline"
   ]
 }

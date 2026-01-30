@@ -115,6 +115,25 @@ def mock_blender_client():
 
 
 # ============================================================================
+# Mock AI Provider Fixtures
+# ============================================================================
+@pytest.fixture
+def mock_gemini_provider():
+    """Provide a mock Gemini AI provider for testing."""
+    # Create mock ModelInfo objects with .name attribute
+    mock_model_1 = MagicMock()
+    mock_model_1.name = "gemini-1.5-flash"
+    mock_model_2 = MagicMock()
+    mock_model_2.name = "gemini-1.5-pro"
+
+    provider = MagicMock()
+    provider.name = "gemini"
+    provider.current_model = "gemini-1.5-flash"
+    provider.available_models = [mock_model_1, mock_model_2]
+    return provider
+
+
+# ============================================================================
 # Test Markers
 # ============================================================================
 def pytest_configure(config):

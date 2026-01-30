@@ -14,36 +14,54 @@ class AIProviderError(Exception):
 class APIKeyMissingError(AIProviderError):
     """API key not configured for the provider."""
 
-    def __init__(self, provider_name: str, env_var: str) -> None:
-        self.provider_name = provider_name
+    def __init__(self, message: str = "", env_var: str | None = None) -> None:
+        """
+        Initialize APIKeyMissingError.
+
+        Args:
+            message: Error message or provider name.
+            env_var: Optional environment variable name.
+        """
         self.env_var = env_var
-        super().__init__(
-            f"{provider_name} API key not found. "
-            f"Set the {env_var} environment variable."
-        )
+        if env_var:
+            full_msg = f"{message} Set the {env_var} environment variable."
+        else:
+            full_msg = message
+        super().__init__(full_msg)
 
 
 class APIKeyInvalidError(AIProviderError):
     """API key is invalid or rejected by the provider."""
 
-    def __init__(self, provider_name: str, message: str = "") -> None:
-        self.provider_name = provider_name
-        msg = f"{provider_name} API key is invalid."
-        if message:
-            msg += f" Details: {message}"
-        super().__init__(msg)
+    def __init__(self, message: str = "") -> None:
+        """
+        Initialize APIKeyInvalidError.
+
+        Args:
+            message: Error message describing the issue.
+        """
+        super().__init__(message or "API key is invalid.")
 
 
 class RateLimitError(AIProviderError):
     """API rate limit exceeded."""
 
-    def __init__(self, provider_name: str, retry_after: float | None = None) -> None:
-        self.provider_name = provider_name
+    def __init__(self, message: str = "", retry_after: float | None = None) -> None:
+        """
+        Initialize RateLimitError.
+
+        Args:
+            message: Error message or provider name.
+            retry_after: Optional seconds until retry is allowed.
+        """
         self.retry_after = retry_after
-        msg = f"{provider_name} rate limit exceeded."
-        if retry_after:
-            msg += f" Retry after {retry_after} seconds."
-        super().__init__(msg)
+        if retry_after and message:
+            full_msg = f"{message} Retry after {retry_after} seconds."
+        elif retry_after:
+            full_msg = f"Rate limit exceeded. Retry after {retry_after} seconds."
+        else:
+            full_msg = message or "Rate limit exceeded."
+        super().__init__(full_msg)
 
 
 class ModelUnavailableError(AIProviderError):
@@ -83,9 +101,23 @@ class ContextTooLongError(AIProviderError):
 class ProviderConnectionError(AIProviderError):
     """Failed to connect to the AI provider."""
 
-    def __init__(self, provider_name: str, message: str = "") -> None:
+    def __init__(self, message: str = "") -> None:
+        """
+        Initialize ProviderConnectionError.
+
+        Args:
+            message: Error message describing the connection failure.
+        """
+        super().__init__(message or "Failed to connect to AI provider.")
+
+
+class ProviderNotFoundError(AIProviderError):
+    """Requested provider is not available or not registered."""
+
+    def __init__(self, provider_name: str, available: list[str] | None = None) -> None:
         self.provider_name = provider_name
-        msg = f"Failed to connect to {provider_name}."
-        if message:
-            msg += f" Details: {message}"
+        self.available = available or []
+        msg = f"Provider '{provider_name}' not found."
+        if self.available:
+            msg += f" Available providers: {', '.join(self.available)}"
         super().__init__(msg)
