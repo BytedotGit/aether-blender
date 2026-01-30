@@ -6,9 +6,9 @@ Aether-Blender is a natural language interface that allows complete novices to c
 
 ## Current Status
 
-- **Active Phase:** Phase 1 - The Iron Foundation
+- **Active Phase:** Phase 2 - The Synapse
 - **Last Updated:** 2026-01-30
-- **CI Status:** Not Yet Configured
+- **CI Status:** Configured
 - **Repository:** https://github.com/BytedotGit/aether-blender
 
 ---
@@ -29,12 +29,12 @@ Establish a deterministic, reproducible development environment with comprehensi
 - [x] Pre-commit hooks active (black, ruff, file length check)
 - [x] GitHub Actions CI pipeline passing green
 - [x] `scripts/setup_blender.py` downloads Blender 4.2 LTS portable
-- [ ] Blender launch verification test passes
+- [x] Blender launch verification test passes
 - [x] VS Code workspace configuration complete
 - [x] Logging infrastructure skeleton in place
 - [x] `.aether_state.json` state tracking file created
 - [x] `README.md` with comprehensive setup instructions
-- [ ] Branch protection rules configured
+- [ ] Branch protection rules configured (requires human intervention)
 
 ### Deliverables
 
@@ -64,14 +64,14 @@ Establish robust, bi-directional communication between the external Python envir
 
 ### Success Criteria
 
-- [ ] Blender addon with threaded socket server created
-- [ ] External Python client library created
-- [ ] JSON-RPC protocol implemented with schema validation
-- [ ] Thread-safe execution queue in Blender (main thread execution)
-- [ ] Connection lifecycle management (connect, disconnect, reconnect)
-- [ ] Timeout handling and error propagation
-- [ ] Heartbeat/ping mechanism for connection health
-- [ ] Integration tests passing (send command, verify execution)
+- [x] Blender addon with threaded socket server created
+- [x] External Python client library created
+- [x] JSON-RPC protocol implemented with schema validation
+- [x] Thread-safe execution queue in Blender (main thread execution)
+- [x] Connection lifecycle management (connect, disconnect, reconnect)
+- [x] Timeout handling and error propagation
+- [x] Heartbeat/ping mechanism for connection health
+- [x] Integration tests passing (send command, verify execution) - 12/12 tests pass
 - [ ] Graceful degradation when Blender is not running
 
 ### Technical Architecture

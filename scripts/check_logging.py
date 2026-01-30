@@ -39,6 +39,14 @@ def check_logging(filepath: str) -> tuple[bool, str]:
     if "test" in path.name.lower():
         return True, ""
 
+    # Skip blender_addon files (they run inside Blender with different logging)
+    if "blender_addon" in filepath:
+        return True, ""
+
+    # Skip exceptions.py (pure data classes, no operations to log)
+    if path.name == "exceptions.py":
+        return True, ""
+
     try:
         content = path.read_text(encoding="utf-8")
     except Exception:
