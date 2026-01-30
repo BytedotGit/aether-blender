@@ -1,0 +1,97 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Poetry
+poetry.lock
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Logs
+logs/*.log
+*.log
+
+# Blender
+tools/blender/
+*.blend1
+*.blend2
+crash_*.txt
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project specific
+.aether_state.json.backup
+assets/projects/*.blend
+assets/projects/**/*.blend
+assets/textures/*
+assets/models/*
+!assets/*/.gitkeep
+!assets/**/.gitkeep
+
+# API Keys (NEVER COMMIT)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# mypy
+.mypy_cache/

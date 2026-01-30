@@ -1,0 +1,45 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  - repo: https://github.com/psf/black
+    rev: 24.1.0
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: ['--line-length=88']
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.1.14
+    hooks:
+      - id: ruff
+        args: ['--fix', '--exit-non-zero-on-fix']
+
+  - repo: local
+    hooks:
+      - id: check-file-length
+        name: Check file length (800 lines max)
+        entry: python -c "
+import sys
+for f in sys.argv[1:]:
+    if f.endswith('.py'):
+        with open(f, 'r', encoding='utf-8', errors='ignore') as file:
+            lines = len(file.readlines())
+            if lines > 800:
+                print(f'ERROR: {f} has {lines} lines (max 800)')
+                sys.exit(1)
+            elif lines > 700:
+                print(f'WARNING: {f} has {lines} lines (approaching 800 limit)')
+"
+        language: system
+        types: [python]
+        pass_filenames: true
