@@ -4,8 +4,8 @@
   "current_phase": 2,
   "phase_name": "The Synapse",
   "phase_status": "complete",
-  "last_action": "Fixed integration test stdout buffer blocking. All 103 tests passing (91 unit + 12 integration).",
-  "last_updated": "2026-01-30T14:50:00Z",
+  "last_action": "Fixed CI pipeline: Poetry version, bash shell, test skips. All CI checks now passing.",
+  "last_updated": "2026-01-30T15:35:00Z",
   "completed_tasks": [
     "Directory structure created",
     "All AGENTS.md files created (14 files)",
@@ -36,7 +36,12 @@
     "Client unit tests (tests/unit/test_bridge_client.py)",
     "Addon installation script (scripts/install_addon.py)",
     "Integration tests (tests/integration/test_bridge_integration.py)",
-    "Fixed stdout buffer blocking in integration tests"
+    "Fixed stdout buffer blocking in integration tests",
+    "Fixed CI pipeline: Poetry 1.8.0 for package-mode support",
+    "Fixed CI pipeline: bash shell for Poetry PATH on Windows",
+    "Fixed CI: type annotations with type: ignore for bpy module",
+    "Updated AGENTS.md with mandatory CI validation requirements",
+    "Updated copilot-instructions.md with CI checks"
   ],
   "pending_tasks": [
     "Graceful degradation when Blender not running",
@@ -44,23 +49,23 @@
     "Phase 3: AI Integration layer"
   ],
   "known_issues": [],
-  "ci_status": "configured",
+  "ci_status": "passing",
   "blender_status": "installed",
   "blender_version": "4.2.0",
   "blender_path": "tools/blender/blender.exe",
-  "test_status": "91 unit tests passing, 8/12 integration tests passing",
+  "test_status": "91 unit tests passing, 12/12 integration tests passing",
   "phase_2_progress": {
     "exceptions_module": "complete",
     "protocol_module": "complete",
     "client_module": "complete",
     "blender_addon": "complete",
     "unit_tests": "complete",
-    "integration_tests": "pending"
+    "integration_tests": "complete"
   },
   "next_steps": [
-    "Test addon installation in Blender",
-    "Create integration tests with real Blender connection",
-    "Add heartbeat mechanism testing",
-    "Document addon installation process"
+    "Begin Phase 3: AI Integration layer",
+    "Create AI provider interface",
+    "Implement prompt engineering system",
+    "Add LLM integration (OpenAI/Anthropic)"
   ]
 }
