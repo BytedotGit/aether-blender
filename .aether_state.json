@@ -4,8 +4,8 @@
   "current_phase": 4,
   "phase_name": "The Interface",
   "phase_status": "in_progress",
-  "last_action": "Implemented toast notification manager with tests. 272 tests passing.",
-  "last_updated": "2026-01-30T18:20:00Z",
+  "last_action": "Added comprehensive GUI unit tests. 453 unit tests passing. Phase 4 GUI tests complete.",
+  "last_updated": "2026-01-30T19:30:00Z",
   "completed_tasks": [
     "Directory structure created",
     "All AGENTS.md files created (14 files)",
@@ -69,7 +69,12 @@
     "GUI settings dialog (src/gui/settings_dialog.py)",
     "GUI tests (tests/unit/test_gui_signals.py, test_gui_styles.py)",
     "Toast notification manager (src/gui/toast_manager.py)",
-    "Toast manager tests (tests/unit/test_gui_toast_manager.py)"
+    "Toast manager tests (tests/unit/test_gui_toast_manager.py)",
+    "GUI message widget tests (tests/unit/test_gui_message_widget.py - 46 tests)",
+    "GUI chat panel tests (tests/unit/test_gui_chat_panel.py - 44 tests)",
+    "GUI status bar tests (tests/unit/test_gui_status_bar.py - 29 tests)",
+    "GUI main window tests (tests/unit/test_gui_main_window.py - 28 tests)",
+    "GUI settings dialog tests (tests/unit/test_gui_settings_dialog.py - 34 tests)"
   ],
   "pending_tasks": [
     "Preview panel (Blender viewport)",
@@ -84,7 +89,7 @@
   "blender_status": "installed",
   "blender_version": "4.2.0",
   "blender_path": "tools/blender/blender.exe",
-  "test_status": "227 unit tests passing",
+  "test_status": "453 unit tests passing",
   "phase_3_progress": {
     "ai_exceptions": "complete",
     "ai_provider_base": "complete",
@@ -103,7 +108,13 @@
     "status_bar": "complete",
     "main_window": "complete",
     "settings_dialog": "complete",
-    "gui_tests": "complete"
+    "toast_manager": "complete",
+    "gui_tests": "complete (181 tests)",
+    "message_widget_tests": "complete (46 tests)",
+    "chat_panel_tests": "complete (44 tests)",
+    "status_bar_tests": "complete (29 tests)",
+    "main_window_tests": "complete (28 tests)",
+    "settings_dialog_tests": "complete (34 tests)"
   },
   "ai_providers": {
     "gemini": {
@@ -123,10 +134,9 @@
     }
   },
   "next_steps": [
-    "Begin Phase 5: The Senses",
-    "Implement toast notification system",
-    "Add Blender viewport preview",
-    "Create asset browser",
-    "Wire GUI to orchestration pipeline for end-to-end flow"
+    "Begin Phase 5: The Senses - Blender viewport preview",
+    "Create asset browser panel",
+    "Wire GUI to orchestration pipeline for end-to-end flow",
+    "Add Blender manager (auto-launch/restart)"
   ]
 }
