@@ -31,6 +31,23 @@ Every change must be verified:
 - Write code → Run tests → Check logs → Confirm success
 - Never assume a change works without verification
 - If tests fail, fix before proceeding
+- **CI must be green before and after every commit**
+
+### 3.1 CI Pipeline Requirements (MANDATORY)
+
+Before starting ANY work:
+
+1. **Check CI Status:** Verify GitHub Actions is green
+2. **Fix Red CI First:** If CI is failing, fixing it is top priority
+
+Before ANY commit:
+
+1. **Run local CI checks:**
+   - `poetry run black --check src tests scripts`
+   - `poetry run ruff check src tests scripts`
+   - `poetry run pytest tests/unit -v`
+2. **Fix all VS Code/Pylance errors** - Zero tolerance for type errors
+3. **Use `# type: ignore` ONLY for `bpy` module** - Document why with comment
 
 ### 4. Commit Protocol
 
@@ -71,6 +88,8 @@ def example(param: str) -> bool:
 - Never use `print()` (use logger)
 - Never hardcode paths (use `pathlib.Path`)
 - Never commit failing tests
+- Never commit with red CI
+- Never commit with Pylance/VS Code errors
 - Never exceed 800 lines per file
 - Never skip type hints
 

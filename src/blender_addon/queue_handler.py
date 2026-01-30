@@ -133,7 +133,7 @@ class QueueHandler:
             return
 
         try:
-            bpy.app.timers.register(
+            bpy.app.timers.register(  # type: ignore[union-attr]
                 self._timer_callback,
                 first_interval=TIMER_INTERVAL,
                 persistent=True,
@@ -149,8 +149,8 @@ class QueueHandler:
             return
 
         try:
-            if bpy.app.timers.is_registered(self._timer_callback):
-                bpy.app.timers.unregister(self._timer_callback)
+            if bpy.app.timers.is_registered(self._timer_callback):  # type: ignore[union-attr]
+                bpy.app.timers.unregister(self._timer_callback)  # type: ignore[union-attr]
             self._timer_registered = False
             logger.debug("Timer unregistered")
         except Exception as e:
@@ -288,7 +288,7 @@ class QueueHandler:
     def _handle_query_scene(
         self,
         request_id: str,
-        params: dict[str, Any],  # noqa: ARG002 - Reserved for future query options
+        _params: dict[str, Any],  # Reserved for future query options
     ) -> dict[str, Any]:
         """Handle scene query request."""
         logger.debug("Handling query_scene")

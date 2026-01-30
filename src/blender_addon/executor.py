@@ -231,14 +231,14 @@ def get_scene_info() -> dict[str, Any]:
         return {"error": "Blender not available"}
 
     try:
-        scene = bpy.context.scene
+        scene = bpy.context.scene  # type: ignore[union-attr]
         return {
             "name": scene.name,
             "frame_current": scene.frame_current,
             "frame_start": scene.frame_start,
             "frame_end": scene.frame_end,
-            "object_count": len(bpy.data.objects),
-            "objects": [obj.name for obj in bpy.data.objects[:100]],  # Limit to 100
+            "object_count": len(bpy.data.objects),  # type: ignore[union-attr]
+            "objects": [obj.name for obj in bpy.data.objects[:100]],  # type: ignore[union-attr]
         }
     except Exception as e:
         logger.error(f"Failed to get scene info: {e}")
@@ -260,14 +260,14 @@ def get_object_list() -> list[dict[str, Any]]:
 
     try:
         objects = []
-        for obj in bpy.data.objects:
+        for obj in bpy.data.objects:  # type: ignore[union-attr]
             objects.append(
                 {
                     "name": obj.name,
                     "type": obj.type,
-                    "location": list(obj.location),
-                    "rotation": list(obj.rotation_euler),
-                    "scale": list(obj.scale),
+                    "location": list(obj.location),  # type: ignore[arg-type]
+                    "rotation": list(obj.rotation_euler),  # type: ignore[arg-type]
+                    "scale": list(obj.scale),  # type: ignore[arg-type]
                 }
             )
         return objects

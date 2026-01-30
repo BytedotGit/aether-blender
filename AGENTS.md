@@ -372,14 +372,49 @@ Before ANY commit, verify:
 □ All new functions have entry/exit logging
 □ All new functions have input validation
 □ All tests pass (poetry run pytest)
-□ Linting passes (poetry run ruff check)
-□ Formatting correct (poetry run black --check)
+□ Linting passes (poetry run ruff check src tests scripts)
+□ Formatting correct (poetry run black --check src tests scripts)
+□ Type checking passes (no Pylance/VS Code errors)
 □ No file exceeds 800 lines
 □ Relevant AGENTS.md updated
 □ .aether_state.json updated
+□ CI pipeline is green (check GitHub Actions before starting new work)
 ```
 
-### 8.3 New Feature Validation Script
+### 8.3 CI Pipeline Validation
+
+**MANDATORY:** Before starting ANY work, verify CI is green:
+
+1. **Check CI Status First:**
+   ```bash
+   # Check GitHub Actions status (requires gh CLI)
+   gh run list --limit 5
+   ```
+
+2. **Run Full Local CI Before Commits:**
+   ```bash
+   # Run the complete CI validation locally
+   poetry run black --check src tests scripts
+   poetry run ruff check src tests scripts
+   poetry run pytest tests/unit -v
+   ```
+
+3. **Fix CI Failures Immediately:**
+   - If CI is red, fixing it takes priority over new work
+   - Never commit on top of a failing CI
+   - All merges require green CI status
+
+4. **Type Checking Requirements:**
+   - All VS Code/Pylance errors must be resolved before commit
+   - Use `# type: ignore` comments ONLY for Blender-specific code (bpy module)
+   - Document why type: ignore is needed with a comment
+
+5. **CI Pipeline Stages:**
+   - `code-quality`: black --check, ruff check
+   - `unit-tests`: pytest tests/unit
+   - `blender-tests`: pytest tests/integration (runs in Blender environment)
+
+### 8.4 New Feature Validation Script
 
 Use `scripts/validate_feature.py` to verify compliance:
 
