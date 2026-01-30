@@ -66,7 +66,7 @@ my_project/
 class BackupManager:
     def __init__(self, interval_minutes: int = 5):
         self.interval = interval_minutes
-    
+
     def start_auto_backup(self):
         """
         Every N minutes:
@@ -76,7 +76,7 @@ class BackupManager:
         4. Log backup creation
         """
         pass
-    
+
     def restore_backup(self, backup_path: Path) -> bool:
         """
         Restore from backup:

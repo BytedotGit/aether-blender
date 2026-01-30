@@ -32,3 +32,21 @@ repos:
         language: system
         types: [python]
         pass_filenames: true
+
+      - id: check-logging
+        name: Check logging in src files
+        entry: python scripts/check_logging.py
+        language: system
+        types: [python]
+        files: ^src/
+        exclude: ^src/.*__init__\.py$
+        pass_filenames: true
+
+      - id: check-tests-exist
+        name: Check tests exist for src files
+        entry: python scripts/check_tests_exist.py
+        language: system
+        types: [python]
+        files: ^src/
+        exclude: ^src/.*__init__\.py$
+        pass_filenames: true

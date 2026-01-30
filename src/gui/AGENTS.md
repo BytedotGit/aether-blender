@@ -67,11 +67,11 @@ from PyQt6.QtCore import QThread, pyqtSignal
 class ExecutionWorker(QThread):
     finished = pyqtSignal(dict)
     error = pyqtSignal(str)
-    
+
     def __init__(self, code: str):
         super().__init__()
         self.code = code
-    
+
     def run(self):
         try:
             result = bridge_client.execute(self.code)
@@ -87,11 +87,11 @@ class ToastManager:
     def show_success(self, message: str, duration: int = 3000):
         """Green toast, auto-dismiss."""
         pass
-    
+
     def show_error(self, message: str, duration: int = 5000):
         """Red toast, longer display."""
         pass
-    
+
     def show_info(self, message: str, duration: int = 3000):
         """Blue toast, informational."""
         pass

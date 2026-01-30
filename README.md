@@ -13,7 +13,7 @@ Aether-Blender allows complete novices to create professional-quality 3D animati
 
 ```text
 You: "Create a spinning blue cube with dramatic lighting"
-Aether: "Done! I've created a blue metallic cube rotating at the origin 
+Aether: "Done! I've created a blue metallic cube rotating at the origin
          with a three-point lighting setup. The animation is 120 frames."
 ```
 

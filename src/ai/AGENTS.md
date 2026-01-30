@@ -44,7 +44,7 @@ class AIProvider(ABC):
     ) -> str:
         """Generate Blender Python code from natural language."""
         pass
-    
+
     @abstractmethod
     async def fix_code(
         self,

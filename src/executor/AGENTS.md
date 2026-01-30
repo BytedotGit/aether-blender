@@ -36,9 +36,9 @@ Handles safe execution of AI-generated code in Blender, including sandboxing, er
 ```python
 class CodeValidator:
     """Validate code before execution."""
-    
+
     SYNTAX_CHECK = True
-    
+
     # Note: Full trust mode - logging only, not blocking
     LOGGED_PATTERNS = [
         r"import\s+os",
@@ -48,11 +48,11 @@ class CodeValidator:
         r"eval\s*\(",
         r"exec\s*\(",  # nested exec
     ]
-    
+
     def validate(self, code: str) -> ValidationResult:
         """
         Validate code for execution.
-        
+
         Returns:
             ValidationResult with:
             - is_valid: bool
@@ -71,13 +71,13 @@ SAFE_GLOBALS = {
     "bpy": bpy,
     "mathutils": mathutils,
     "bmesh": bmesh,
-    
+
     # Python stdlib (safe subset)
     "math": math,
     "random": random,
     "json": json,
     "datetime": datetime,
-    
+
     # Utilities
     "Vector": mathutils.Vector,
     "Matrix": mathutils.Matrix,
@@ -91,9 +91,9 @@ SAFE_GLOBALS = {
 ```python
 class RetryManager:
     """Handle execution retry with AI-assisted fixes."""
-    
+
     MAX_RETRIES = 3
-    
+
     async def execute_with_retry(
         self,
         code: str,
@@ -102,7 +102,7 @@ class RetryManager:
     ) -> ExecutionResult:
         """
         Execute code with automatic retry on failure.
-        
+
         Flow:
         1. Execute code
         2. If success, return result
@@ -113,10 +113,10 @@ class RetryManager:
         """
         for attempt in range(self.MAX_RETRIES):
             result = await self.execute(code)
-            
+
             if result.success:
                 return result
-            
+
             if attempt < self.MAX_RETRIES - 1:
                 code = await ai_provider.fix_code(
                     code=code,
@@ -124,7 +124,7 @@ class RetryManager:
                     original_request=original_request
                 )
                 logger.info(f"Retry {attempt + 1}: AI suggested fix")
-        
+
         return result  # Final failure
 ```
 
@@ -140,22 +140,22 @@ class ExecutionRecord:
     result: ExecutionResult
     retries: int
     duration_ms: float
-    
+
 class ExecutionHistory:
     """Track all executions for debugging."""
-    
+
     def record(self, record: ExecutionRecord):
         """Save execution to history."""
         pass
-    
+
     def get_recent(self, n: int = 10) -> list[ExecutionRecord]:
         """Get N most recent executions."""
         pass
-    
+
     def get_failures(self) -> list[ExecutionRecord]:
         """Get all failed executions."""
         pass
-    
+
     def export(self, path: Path):
         """Export history for debugging."""
         pass
@@ -166,7 +166,7 @@ class ExecutionHistory:
 ```python
 class ResultVerifier:
     """Verify execution produced expected results."""
-    
+
     async def verify(
         self,
         request: str,
@@ -174,12 +174,12 @@ class ResultVerifier:
     ) -> VerificationResult:
         """
         Verify the result matches the request.
-        
+
         Examples:
         - "create cube" → verify object named "Cube" exists
         - "delete all" → verify scene is empty
         - "move to (1,2,3)" → verify object location
-        
+
         Returns:
             VerificationResult with confidence score
         """
@@ -191,11 +191,11 @@ class ResultVerifier:
 ```python
 class ErrorClassifier:
     """Classify errors for appropriate handling."""
-    
+
     def classify(self, error: str) -> ErrorType:
         """
         Classify error type.
-        
+
         SYNTAX_ERROR: Code has syntax issues (AI can fix)
         RUNTIME_ERROR: Code failed during execution (AI might fix)
         BLENDER_ERROR: Blender-specific issue (context, mode)

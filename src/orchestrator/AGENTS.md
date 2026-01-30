@@ -46,7 +46,7 @@ class BlenderManager:
     def launch(self, headless: bool = False) -> bool:
         """
         Launch Blender with Aether addon.
-        
+
         Steps:
         1. Verify Blender executable exists
         2. Verify addon is installed
@@ -55,11 +55,11 @@ class BlenderManager:
         5. Return success/failure
         """
         pass
-    
+
     def restart(self) -> bool:
         """
         Restart Blender after crash.
-        
+
         Steps:
         1. Kill existing process if zombie
         2. Wait for port to be released
@@ -92,7 +92,7 @@ class BridgeManager:
     async def health_check(self) -> HealthStatus:
         """
         Ping Blender every 5 seconds.
-        
+
         Returns:
             HealthStatus.HEALTHY - Response received
             HealthStatus.SLOW - Response > 2 seconds
@@ -100,11 +100,11 @@ class BridgeManager:
             HealthStatus.DISCONNECTED - Socket closed
         """
         pass
-    
+
     async def auto_recover(self, status: HealthStatus):
         """
         Automatic recovery based on health status.
-        
+
         SLOW: Log warning, continue
         UNRESPONSIVE: Attempt reconnect (3 tries)
         DISCONNECTED: Trigger BlenderManager.restart()
@@ -173,12 +173,12 @@ logging:
 Minor Error (syntax error in generated code)
     → Auto-retry with AI fix (up to 3 times)
     → Show toast notification
-    
+
 Major Error (Blender crash)
     → Auto-restart Blender
     → Show prominent notification
     → Log full traceback
-    
+
 Critical Error (repeated crashes)
     → Stop auto-restart
     → Show error dialog

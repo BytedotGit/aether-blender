@@ -42,11 +42,11 @@ class VideoExportConfig:
     quality: Literal["low", "medium", "high", "lossless"] = "high"
     start_frame: int = 1
     end_frame: int | None = None  # None = use scene end
-    
+
     # MP4 specific
     codec: str = "H264"
     audio: bool = True
-    
+
     # GIF specific
     loop: bool = True
     optimize: bool = True
@@ -81,20 +81,20 @@ scene.render.filepath = r'{config.output_path}'
 ```python
 class ExportProgress:
     """Track and report export progress."""
-    
+
     def __init__(self, total_frames: int):
         self.total = total_frames
         self.current = 0
         self.start_time = None
         self.callbacks: list[Callable] = []
-    
+
     def update(self, frame: int):
         self.current = frame
         progress = (frame / self.total) * 100
         eta = self._calculate_eta()
         for callback in self.callbacks:
             callback(progress, eta)
-    
+
     def on_progress(self, callback: Callable[[float, float], None]):
         """Register progress callback."""
         self.callbacks.append(callback)

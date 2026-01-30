@@ -74,7 +74,7 @@ def execute_safely(code: str) -> dict:
     old_stderr = sys.stderr
     sys.stdout = captured_out = StringIO()
     sys.stderr = captured_err = StringIO()
-    
+
     try:
         exec(code, {"bpy": bpy, "math": math, "mathutils": mathutils})
         return {
