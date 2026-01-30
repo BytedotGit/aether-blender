@@ -272,3 +272,10 @@ def get_signals() -> AetherSignals:
         _signals_instance = AetherSignals()
         logger.info("Global AetherSignals instance created")
     return _signals_instance
+
+
+def reset_signals() -> None:
+    """Reset the global signals instance (for testing)."""
+    global _signals_instance
+    logger.debug("Resetting global AetherSignals instance")
+    _signals_instance = None

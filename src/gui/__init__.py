@@ -18,6 +18,7 @@ from src.gui.signals import (
     ToastLevel,
     ToastNotification,
     get_signals,
+    reset_signals,
 )
 from src.gui.status_bar import AetherStatusBar, StatusIndicator
 from src.gui.styles import (
@@ -33,6 +34,16 @@ from src.gui.styles import (
     get_full_stylesheet,
     get_status_color,
     get_toast_stylesheet,
+)
+from src.gui.toast_manager import (
+    ToastConfig,
+    ToastManager,
+    ToastWidget,
+    show_error,
+    show_info,
+    show_success,
+    show_toast,
+    show_warning,
 )
 
 __all__ = [
@@ -52,6 +63,7 @@ __all__ = [
     # Signals
     "AetherSignals",
     "get_signals",
+    "reset_signals",
     "ChatMessage",
     "MessageRole",
     "ConnectionState",
@@ -61,6 +73,15 @@ __all__ = [
     # Status bar
     "AetherStatusBar",
     "StatusIndicator",
+    # Toast notifications
+    "ToastConfig",
+    "ToastManager",
+    "ToastWidget",
+    "show_toast",
+    "show_success",
+    "show_error",
+    "show_warning",
+    "show_info",
     # Styles
     "ColorPalette",
     "FontConfig",
