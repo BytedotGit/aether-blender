@@ -59,6 +59,7 @@ logs/*.log
 
 # Blender
 tools/blender/
+tools/*.zip
 *.blend1
 *.blend2
 crash_*.txt

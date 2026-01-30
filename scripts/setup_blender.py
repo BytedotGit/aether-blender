@@ -20,6 +20,7 @@ import sys
 import urllib.request
 import zipfile
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 
 # Add src to path for logging
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -68,33 +69,65 @@ def download_blender(force: bool = False) -> Path:
         Path to downloaded ZIP file
     """
     if DOWNLOAD_PATH.exists() and not force:
-        logger.info("Blender ZIP already downloaded", extra={"path": str(DOWNLOAD_PATH)})
+        logger.info(
+            "Blender ZIP already downloaded", extra={"path": str(DOWNLOAD_PATH)}
+        )
         return DOWNLOAD_PATH
 
     logger.info("Starting Blender download", extra={"url": BLENDER_URL})
     TOOLS_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Download with progress
-    def report_progress(block_num: int, block_size: int, total_size: int) -> None:
-        downloaded = block_num * block_size
-        if total_size > 0:
-            percent = min(100, (downloaded / total_size) * 100)
-            if block_num % 100 == 0:  # Don't spam logs
-                logger.debug(
-                    "Download progress",
-                    extra={"percent": f"{percent:.1f}%", "mb": f"{downloaded / 1024 / 1024:.1f}"},
-                )
-
     try:
-        urllib.request.urlretrieve(BLENDER_URL, DOWNLOAD_PATH, reporthook=report_progress)
-        logger.info(
-            "Download complete",
-            extra={"size_mb": f"{DOWNLOAD_PATH.stat().st_size / 1024 / 1024:.1f}"},
-        )
+        _perform_download()
         return DOWNLOAD_PATH
+    except HTTPError as e:
+        logger.error(f"HTTP Error: {e.code} {e.reason}", extra={"url": BLENDER_URL})
+        raise
+    except URLError as e:
+        logger.error(f"URL Error: {e.reason}", extra={"url": BLENDER_URL})
+        raise
     except Exception as e:
         logger.error("Download failed", extra={"error": str(e)})
         raise
+
+
+def _perform_download() -> None:
+    """Perform the actual download with progress logging."""
+    request = urllib.request.Request(
+        BLENDER_URL,
+        headers={
+            "User-Agent": "Aether-Blender/1.0 (https://github.com/BytedotGit/aether-blender)"
+        },
+    )
+    with urllib.request.urlopen(request) as response:
+        total_size = int(response.headers.get("Content-Length", 0))
+        downloaded = 0
+        block_size = 8192
+        last_logged_percent = -10
+
+        with open(DOWNLOAD_PATH, "wb") as out_file:
+            while True:
+                chunk = response.read(block_size)
+                if not chunk:
+                    break
+                out_file.write(chunk)
+                downloaded += len(chunk)
+
+                if total_size > 0:
+                    percent = int((downloaded / total_size) * 100)
+                    # Log every 10%
+                    if percent >= last_logged_percent + 10:
+                        last_logged_percent = (percent // 10) * 10
+                        mb_dl = downloaded / 1024 / 1024
+                        mb_tot = total_size / 1024 / 1024
+                        logger.info(
+                            f"Download: {last_logged_percent}% ({mb_dl:.0f}/{mb_tot:.0f} MB)"
+                        )
+
+    logger.info(
+        "Download complete",
+        extra={"size_mb": f"{DOWNLOAD_PATH.stat().st_size / 1024 / 1024:.1f}"},
+    )
 
 
 def verify_checksum(zip_path: Path) -> bool:

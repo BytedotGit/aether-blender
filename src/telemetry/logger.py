@@ -52,9 +52,7 @@ class ConsoleFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """Format log record for console with colors."""
         color = self.COLORS.get(record.levelname, self.RESET)
-        timestamp = datetime.fromtimestamp(record.created).strftime(
-            "%Y-%m-%d %H:%M:%S"
-        )
+        timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
 
         # Build base message
         message = f"[{timestamp}] [{record.name}] [{color}{record.levelname}{self.RESET}] {record.getMessage()}"
@@ -70,9 +68,7 @@ class ConsoleFormatter(logging.Formatter):
 class ContextAdapter(logging.LoggerAdapter):
     """Logger adapter that handles extra context properly."""
 
-    def process(
-        self, msg: str, kwargs: dict[str, Any]
-    ) -> tuple[str, dict[str, Any]]:
+    def process(self, msg: str, kwargs: dict[str, Any]) -> tuple[str, dict[str, Any]]:
         """Process log message to include extra context."""
         extra = kwargs.get("extra", {})
         if self.extra:
